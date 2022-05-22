@@ -1,0 +1,12 @@
+{
+  "background_color": "#FFF",
+  "display": "standalone",
+  "name": "Cordova",
+  "short_name": "Cordova",
+  "version": "com.azern.cordova",
+  "description": "Sample Apache Cordova App",
+  "author": "Apache Cordova Team",
+  "icons": [],
+  "orientation": "landscape",
+  "start_url": "index.html"
+}

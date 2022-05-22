@@ -1,0 +1,6 @@
+{
+    "howler":{
+        "from":["dist","howler.js"],
+        "to":["js","howler.js"]
+    }
+}
