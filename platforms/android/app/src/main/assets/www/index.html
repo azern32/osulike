@@ -37,7 +37,7 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app">
+        <!-- <div class="app">
             <h1>Apache Cordova</h1>
             <div id="deviceready" class="blink">
                 <p class="event listening">Connecting to Device</p>
@@ -46,18 +46,29 @@
                 <p id="pixi-test">Paan sih</p>
                 <button id="change">Berubah</button>
             </div>
+        </div> -->
+        <div class="debug" style="display: none;">
+            <p>This is debug lines</p>
         </div>
+        <div style="position: absolute; bottom:0px; z-index=10;">
+            <input id="debug_button" type="checkbox" name="debug">
+            <label for="debug_button">Debug</label>
+        </div>
+        
 
-
-
+        
         <script src="js/jquery-3.6.0.min.js"></script>
         <!-- <script src="../node_modules/howler/dist/howler.js"></script> -->
         <script src="js/howler.js"></script>
         <script src="js/pixi.min.js"></script>
         <script src="js/orientation.js"></script>
         <script src="cordova.js"></script>
-        <script src="js/index.js"></script>
+        <!-- <script src="js/index.js"></script> -->
 
-        <script src="js/pixitest.js" ></script>
+        <script src="js/core/variables.js"></script>
+        <script src="js/core/extend-pixi.js"></script>
+        <script src="js/core/music-read.js"></script>
+
+        <script src="js/core/render.js"></script>
     </body>
 </html>

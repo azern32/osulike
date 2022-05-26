@@ -16,3 +16,31 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+body {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+canvas {
+    top: 0px;
+    left: 0px;
+}
+
+.debug {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    color: red;
+    background-color: #00000020;
+    height: calc(100% - 25px);
+    width: 100%;
+    overflow: scroll;
+}
+
+p {
+    margin: 2px 2px;
+    font-size: 11px;
+}
+
