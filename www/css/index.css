@@ -36,7 +36,15 @@ canvas {
     background-color: #00000020;
     height: calc(100% - 25px);
     width: 100%;
-    overflow: scroll;
+}
+
+.debug-err {
+    overflow-wrap: break-word;
+    height: calc(30% - 10px);
+}
+
+.debug-info {
+    height: 70%;
 }
 
 p {

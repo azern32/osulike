@@ -66,19 +66,3 @@ function window_scale(){
 }
 
 
-// Show Debug
-function debug_enabled(x){
-    x? $('.debug').css('display','block') : $('.debug').css('display','none');
-    return x;
-}
-
-function debugmsg(msg){
-    $('.debug').append(`<p>${msg}</p>`)
-}
-window.onerror = function(msg, url, line){
-    debugmsg(msg)
-}
-
-$('#debug_button').change(function(){
-    debug_enabled($( "#debug_button" ).prop('checked'))
-})
