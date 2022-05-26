@@ -37,8 +37,10 @@ if (PIXI.isMobile.phone){
 $('body').prepend(renderer.view)
 
 ticker.add(function (delta) {
-    renderer.render(camera)
-    showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
+    // renderer.render(camera);
+    // showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
+    renderer.render(debug_screen);
+    updateInfo()
 })
 
 ticker.start()

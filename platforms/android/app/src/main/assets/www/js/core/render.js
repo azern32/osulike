@@ -4,8 +4,8 @@ if (PIXI.isMobile.phone){
 }
 
 // Scaling Camera
-// camera.scale.x = window_scale();
-// camera.scale.y = window_scale();
+// gameplay.scale.x = window_scale();
+// gameplay.scale.y = window_scale();
 
 
 
@@ -31,14 +31,16 @@ if (PIXI.isMobile.phone){
     graphics.endFill();
 
 
-    camera.addChild(showDate, graphics);
+    gameplay.addChild(showDate, graphics, debug_button);
 // 
 
 $('body').prepend(renderer.view)
+to_render = gameplay
 
 ticker.add(function (delta) {
-    renderer.render(camera)
-    showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
+    renderer.render(to_render);
+    // showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
+    updateInfo()
 })
 
 ticker.start()

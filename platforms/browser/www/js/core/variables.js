@@ -30,6 +30,10 @@ var nio_0,                  // approach
     nio_1                   // hold timer
 ;
 
+// Global PIXI Settings
+PIXI.settings.RENDER_OPTIONS.antialias = true
+PIXI.settings.ROUND_PIXELS = true
+
 
 // PIXI's variabels
 const renderer = new PIXI.Renderer({
@@ -66,19 +70,3 @@ function window_scale(){
 }
 
 
-// Show Debug
-function debug_enabled(x){
-    x? $('.debug').css('display','block') : $('.debug').css('display','none');
-    return x;
-}
-
-function debugmsg(msg){
-    $('.debug').append(`<p>${msg}</p>`)
-}
-window.onerror = function(msg, url, line){
-    debugmsg(msg)
-}
-
-$('#debug_button').change(function(){
-    debug_enabled($( "#debug_button" ).prop('checked'))
-})
