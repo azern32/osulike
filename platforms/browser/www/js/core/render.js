@@ -4,43 +4,19 @@ if (PIXI.isMobile.phone){
 }
 
 // Scaling Camera
-// camera.scale.x = window_scale();
-// camera.scale.y = window_scale();
+// gameplay.scale.x = window_scale();
+// gameplay.scale.y = window_scale();
 
-
-
-//  To be deleted
-    const style = new PIXI.TextStyle({
-        fontFamily: 'Arial',
-        fontSize: 11        
-    });
-
-    var showDate = new PIXI.Text()
-    showDate.x = 10
-    showDate.y = 10
-    showDate.style = style
-    function updateDate(){
-        return Date.now()
-    }
-
-    const graphics = new PIXI.Graphics();
-
-    graphics.lineStyle(2, 0xFEEB77, 1);
-    graphics.beginFill(0x650A5A, 1);
-    graphics.drawCircle(250, 250, 50);
-    graphics.endFill();
-
-
-    camera.addChild(showDate, graphics);
-// 
+gameplay.addChild(hitobject[0], debug_button);
 
 $('body').prepend(renderer.view)
+to_render = gameplay
 
 ticker.add(function (delta) {
-    // renderer.render(camera);
+    renderer.render(to_render);
     // showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
-    renderer.render(debug_screen);
     updateInfo()
+
 })
 
 ticker.start()

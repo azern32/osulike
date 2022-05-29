@@ -36,16 +36,15 @@ var hitobject = []
 
 hitobject[0] = new PIXI.Sprite(hittexture) // tap object
 hitobject[0].anchor.set(0.5);
+hitobject[0].x = window.screen.width / 2
+hitobject[0].y = window.screen.height / 2
 hitobject[0].tint = 0xc7e5ff
 
 hitobject[1] = new PIXI.Sprite(hittexture) // slide object
 hitobject[1].anchor.set(0.5);
-hitobject[1].tint = 0xe27ce2
 
 hitobject[2] = new PIXI.Sprite(hittexture) // hold object
 hitobject[2].anchor.set(0.5);
-hitobject[2].tint = 0xe27ce2
 
 hitobject[3] = new PIXI.Sprite(hittexture) // twin objet
 hitobject[3].anchor.set(0.5);
-hitobject[3].tint = 0xffd966

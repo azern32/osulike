@@ -5,6 +5,7 @@ var music_map   = '../../0-map'
 // Load music
 var music = new Howl({
     src : [`${music_map}/${music_filename}`],
+    volume: music_volume/100,
     // html5 : true,
     onload: function() {
         console.log("LOADED");

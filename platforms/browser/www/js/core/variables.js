@@ -9,6 +9,9 @@ var dim_video = 0;          // max scale 100, 0 means 0 transparancy
 var approach_rate = 8;      // max fixed 10
 var window_width = 1360;
 var window_height = 765;
+var to_render     // Containers that act as a page
+var current_bpm
+
 
 
 // Main menu UI things
@@ -43,13 +46,36 @@ const renderer = new PIXI.Renderer({
     backgroundColor:0xeeeeee,
 })
 
-var camera = new PIXI.Container()
+var gameplay = new PIXI.Container()
+    gameplay.name = 'gameplay'
+
+    var gameplay_field = new PIXI.Container()
+        gameplay_field.name = 'gameplay_field'
+        gameplay_field.x = window.screen.width/2
+
+var mainmenu = new PIXI.Container()
+    mainmenu.name = 'mainmenu'
+
+var pause = new PIXI.Container()
+    pause.name = 'pause'
+
+var settings = new PIXI.Container()
+    settings.name = 'settings'
+
+var calibration = new PIXI.Container()
+    calibration.name = 'calibration'
+
+var account = new PIXI.Container()
+    account.name = 'account'
+
+
 var ticker = new PIXI.Ticker()
-
-
 
 // Below this are quick functions 
 // ===============================================
+
+// Convert sizes in bytes
+function formatBytes(a,b=2,k=1024){with(Math){let d=floor(log(a)/log(k));return 0==a?"0 Bytes":parseFloat((a/pow(k,d)).toFixed(max(0,b)))+" "+["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][d]}}
 
 // Convert milisecond to second
 function ms2s (x){  
@@ -59,6 +85,15 @@ function ms2s (x){
 // Convert second to milisecond
 function s2ms (x){
     return x /1000;
+}
+
+// BPM to seconds
+function deltaHit(bpm){
+    return 60/bpm
+}
+
+function metronome(bpm){
+    
 }
 
 // Scaling window
