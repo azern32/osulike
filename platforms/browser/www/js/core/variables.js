@@ -1,7 +1,7 @@
 // Variables
 var global_offset = 0;      //Input calibration in milisecond
 var global_margin = 60;     //in milisecond
-var master_volume = 100;    // max scale 100
+var master_volume = 70;    // max scale 100
 var music_volume = 100;     // max scale 100
 var sfx_volume = 50;        // max scale 100
 var play_video = false;
@@ -9,9 +9,14 @@ var dim_video = 0;          // max scale 100, 0 means 0 transparancy
 var approach_rate = 8;      // max fixed 10
 var window_width = 1360;
 var window_height = 765;
+var perf2 = 0
+var perf1 = 0
 var to_render     // Containers that act as a page
 var current_bpm
-
+var timekeeper = new AudioContext()
+    if (timekeeper.state == "suspended") {
+      timekeeper.resume()
+    }
 
 
 // Main menu UI things
@@ -52,6 +57,7 @@ var gameplay = new PIXI.Container()
     var gameplay_field = new PIXI.Container()
         gameplay_field.name = 'gameplay_field'
         gameplay_field.x = window.screen.width/2
+        gameplay_field.y = window.screen.height * 48/100
 
 var mainmenu = new PIXI.Container()
     mainmenu.name = 'mainmenu'
@@ -71,14 +77,14 @@ var account = new PIXI.Container()
 
 var ticker = new PIXI.Ticker()
 
-// Below this are quick functions 
+// Below this are quick functions
 // ===============================================
 
 // Convert sizes in bytes
 function formatBytes(a,b=2,k=1024){with(Math){let d=floor(log(a)/log(k));return 0==a?"0 Bytes":parseFloat((a/pow(k,d)).toFixed(max(0,b)))+" "+["Bytes","KB","MB","GB","TB","PB","EB","ZB","YB"][d]}}
 
 // Convert milisecond to second
-function ms2s (x){  
+function ms2s (x){
     return x *1000;
 }
 
@@ -93,7 +99,7 @@ function deltaHit(bpm){
 }
 
 function metronome(bpm){
-    
+
 }
 
 // Scaling window
@@ -104,4 +110,26 @@ function window_scale(){
     return (Math.min(w,h));
 }
 
+let arr = []
+let total = 0
 
+// Set BPM
+function setBPM() {
+  // let arr = []
+  // let total = 0
+  if (timekeeper.state == "suspended") {
+    timekeeper.resume()
+  }
+
+  arr.push(new Date().getTime())
+  console.log(new Date().getTime());
+  // arr.push(Number(timekeeper.currentTime.toFixed(4)))
+  // console.log(timekeeper.currentTime);
+  if (arr.length > 1 ){
+    total += Number((arr[arr.length - 1] - arr[arr.length - 2]).toFixed(4))
+    let tempo = total/arr.length
+    console.log(Number((arr[arr.length - 1] - arr[arr.length - 2]).toFixed(4))+" "+60/tempo);
+    current_bpm = 60/tempo * 1000;
+  }
+  perf2 = performance.now()
+}

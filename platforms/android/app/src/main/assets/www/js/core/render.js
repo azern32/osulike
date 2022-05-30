@@ -7,32 +7,18 @@ if (PIXI.isMobile.phone){
 // gameplay.scale.x = window_scale();
 // gameplay.scale.y = window_scale();
 
+gameplay.addChild(gameplay_field, debug_button, start_button);
+gameplay_field.addChild(hitobject[2])
 
+// To be deleted///////////////
+hitobject[2].interactive = true
+hitobject[2].on('pointertap', () => {
+  perf1 = performance.now()
+  setBPM()
+});
 
-//  To be deleted
-    const style = new PIXI.TextStyle({
-        fontFamily: 'Arial',
-        fontSize: 11        
-    });
-
-    var showDate = new PIXI.Text()
-    showDate.x = 10
-    showDate.y = 10
-    showDate.style = style
-    function updateDate(){
-        return Date.now()
-    }
-
-    const graphics = new PIXI.Graphics();
-
-    graphics.lineStyle(2, 0xFEEB77, 1);
-    graphics.beginFill(0x650A5A, 1);
-    graphics.drawCircle(250, 250, 50);
-    graphics.endFill();
-
-
-    gameplay.addChild(showDate, graphics, debug_button);
-// 
+loadMusic()
+///////////////////////////////
 
 $('body').prepend(renderer.view)
 to_render = gameplay
@@ -41,10 +27,7 @@ ticker.add(function (delta) {
     renderer.render(to_render);
     // showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
     updateInfo()
+
 })
 
 ticker.start()
-
-
-
-

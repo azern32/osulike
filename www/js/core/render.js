@@ -7,7 +7,18 @@ if (PIXI.isMobile.phone){
 // gameplay.scale.x = window_scale();
 // gameplay.scale.y = window_scale();
 
-gameplay.addChild(hitobject[0], debug_button);
+gameplay.addChild(gameplay_field, debug_button, start_button);
+gameplay_field.addChild(hitobject[2])
+
+// To be deleted///////////////
+hitobject[2].interactive = true
+hitobject[2].on('pointertap', () => {
+  perf1 = performance.now()
+  setBPM()
+});
+
+loadMusic()
+///////////////////////////////
 
 $('body').prepend(renderer.view)
 to_render = gameplay
@@ -20,7 +31,3 @@ ticker.add(function (delta) {
 })
 
 ticker.start()
-
-
-
-

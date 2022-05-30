@@ -32,7 +32,7 @@ debug_info2.x = window.screen.width - 15;
 debug_info2.y = 3;
 debug_info2.style = text_style2;
 
-debug_screen.addChild(debug_info, debug_info2)  
+debug_screen.addChild(debug_info, debug_info2)
 function updateInfo(){
     // Update info about device
     debug_info.text = `
@@ -55,5 +55,7 @@ function updateInfo(){
     ${play_video} = play_video
     ${dim_video} = dim_video
     ${approach_rate} = approach_rate
+    ${current_bpm} = bpm
+    ${perf2 - perf1} ms = delay
     `
 }
