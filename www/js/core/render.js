@@ -15,6 +15,7 @@ hitobject[2].interactive = true
 hitobject[2].on('pointertap', () => {
   perf1 = performance.now()
   setBPM()
+  tickSFX.play()
 });
 
 loadMusic()

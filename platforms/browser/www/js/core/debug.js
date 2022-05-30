@@ -56,6 +56,6 @@ function updateInfo(){
     ${dim_video} = dim_video
     ${approach_rate} = approach_rate
     ${current_bpm} = bpm
-    ${perf2 - perf1} = delay
+    ${perf2 - perf1} ms = delay
     `
 }
