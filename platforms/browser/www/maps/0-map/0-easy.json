@@ -1,6 +1,9 @@
 {
-    "song_name":"Myosotis",
-    "song_artist":"M2U (feat  Guriri, Lucy)",
-    "song_filename":"Myosotis (feat  Guriri, Lucy)_M2U & NICODE_Myosotis",
-    "bpm":[80,160]
+    "audio_title":"Myosotis",
+    "audio_artist":"M2U (feat  Guriri, Lucy)",
+    "audio_filename":"Myosotis (feat  Guriri, Lucy)_M2U & NICODE_Myosotis",
+    "audio_bpm":[160],
+    "hitobjects":[
+      ["hit timestamp"],["type"],["arrays of timestamp"],["arrays of position"]
+    ]
 }

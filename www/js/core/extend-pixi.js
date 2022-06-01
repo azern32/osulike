@@ -3,11 +3,3 @@
 //         super();
 //     }
 // }
-
-function readMap(map){
-
-}
-
-function placeObjects(objectItem){
-    
-}

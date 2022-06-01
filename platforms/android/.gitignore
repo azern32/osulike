@@ -15,8 +15,8 @@ out
 .gradletasknamecache
 /build
 /CordovaLib/build
-/app/build
-\!/app/build/outputs/apk/debug
+/app/build*
+!/app/build/outputs/apk/debug
 gradle-app.setting
 # Android Studio
 .idea

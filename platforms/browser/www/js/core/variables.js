@@ -12,7 +12,7 @@ var window_height = 765;
 var perf2 = 0
 var perf1 = 0
 var to_render     // Containers that act as a page
-var current_bpm
+var current_bpm = 160
 var timekeeper = new AudioContext()
     if (timekeeper.state == "suspended") {
       timekeeper.resume()
@@ -70,6 +70,10 @@ var settings = new PIXI.Container()
 
 var calibration = new PIXI.Container()
     calibration.name = 'calibration'
+    var calibration_field = new PIXI.Container()
+        calibration_field.name = 'calibration_field'
+        calibration_field.x = window.screen.width/2
+        calibration_field.y = window.screen.height * 48/100
 
 var account = new PIXI.Container()
     account.name = 'account'
