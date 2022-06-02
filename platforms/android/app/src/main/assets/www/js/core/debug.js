@@ -42,6 +42,7 @@ function updateInfo(){
     Memory limit: ${formatBytes(window.performance.memory.jsHeapSizeLimit)}
     Screen : width ${window.screen.width}, height ${window.screen.height}
     Currently rendering : ${to_render.name}
+    debug_message : ${debug_message}
     `
 
     // Update info about settings

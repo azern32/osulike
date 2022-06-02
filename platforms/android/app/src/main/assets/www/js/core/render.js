@@ -3,32 +3,36 @@ if (PIXI.isMobile.phone){
     renderer.resize(window.screen.width, window.screen.height);
 }
 
-// Scaling Camera
-// gameplay.scale.x = window_scale();
-// gameplay.scale.y = window_scale();
+// to be deleted
+function moveplacementLine() {
+  a = Math.round(music.seek() * (16/(60/current_bpm)))
+  placement_line.x = (window.screen.width/2) - a
 
-gameplay.addChild(gameplay_field, debug_button, start_button);
-gameplay_field.addChild(hitobject[2])
+}
 
-// To be deleted///////////////
-hitobject[2].interactive = true
-hitobject[2].on('pointertap', () => {
-  perf1 = performance.now()
-  setBPM()
-  tickSFX.play()
-});
 
-loadMusic()
-///////////////////////////////
+
+// to be deleted
+
+
 
 $('body').prepend(renderer.view)
-to_render = gameplay
+to_render.addChild(debug_button)
+
 
 ticker.add(function (delta) {
     renderer.render(to_render);
     // showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
     updateInfo()
-
+    moveplacementLine()
 })
 
 ticker.start()
+
+
+readMap(map_to_read).then((x)=>{console.log(`${x} ${gameplay_field.children}`)})
+  .then(function(error){
+    console.log(error)
+    gameplay_field.width *= window_scale()
+    gameplay_field.height *= window_scale()
+  })

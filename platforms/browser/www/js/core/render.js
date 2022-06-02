@@ -17,6 +17,8 @@ function moveplacementLine() {
 
 
 $('body').prepend(renderer.view)
+to_render.addChild(debug_button)
+
 
 ticker.add(function (delta) {
     renderer.render(to_render);
@@ -26,3 +28,11 @@ ticker.add(function (delta) {
 })
 
 ticker.start()
+
+
+readMap(map_to_read).then((x)=>{console.log(`${x} ${gameplay_field.children}`)})
+  .then(function(error){
+    console.log(error)
+    gameplay_field.width *= window_scale()
+    gameplay_field.height *= window_scale()
+  })

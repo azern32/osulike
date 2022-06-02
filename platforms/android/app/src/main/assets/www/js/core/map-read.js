@@ -5,7 +5,7 @@ map_to_read = [
   [19,1,[[19]],[[0,0]]],
   [20,0,[[20]],[[-30,-50]]],
   [21,2,[[21]],[[100,200]]],
-  [22,1,[[21]],[[200,100]]],
+  [22,3,[[21]],[[200,100]]],
 ]
 // ///////////////////////////////////////
 
@@ -55,10 +55,13 @@ async function readMap(m) {
     x.hitarea.on('pointertap', ()=>{
       tickSFX.play()
       console.log(x.timestamp);
+      debug_message = x.timestamp;
     })
 
 
     x.addChild(hitobject, x.hitarea)
+    x.width *= 1.5
+    x.height *= 1.5
     gameplay_field.addChildAt(x, 0)
   }
 }

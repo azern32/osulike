@@ -2,12 +2,13 @@
 // gameplay.scale.x = window_scale();
 // gameplay.scale.y = window_scale();
 
-to_render = calibration
+to_render = gameplay
 loadMusic()
 
 
 // Gameplay scenes
-gameplay.addChild(gameplay_field, debug_button, start_button);
+gameplay.addChild(gameplay_field, start_button);
+
 
     // To be deleted///////////////
     // gameplay_field.addChild(hitobject[2])
@@ -71,7 +72,7 @@ var timestamp_line = new PIXI.Graphics();
     timestamp_line.x = window.screen.width/2
     timestamp_line.y = window.screen.height - 50
 
-calibration.addChild(calibration_field, debug_button, placement_line, timestamp_line);
+calibration.addChild(calibration_field, placement_line, timestamp_line);
 
 
 // Account scenes

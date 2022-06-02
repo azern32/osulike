@@ -58,6 +58,7 @@ var gameplay = new PIXI.Container()
         gameplay_field.name = 'gameplay_field'
         gameplay_field.x = window.screen.width/2
         gameplay_field.y = window.screen.height * 48/100
+        
 
 var mainmenu = new PIXI.Container()
     mainmenu.name = 'mainmenu'

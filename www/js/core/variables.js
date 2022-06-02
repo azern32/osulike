@@ -17,7 +17,7 @@ var timekeeper = new AudioContext()
     if (timekeeper.state == "suspended") {
       timekeeper.resume()
     }
-
+var debug_message = ''
 
 // Main menu UI things
 var selected_ratings,
@@ -26,17 +26,6 @@ var selected_ratings,
     selected_track
 ;
 
-// Object Types
-var ot_0,                   // tap
-    ot_1,                   // slide
-    ot_2,                   // hold
-    ot_3                    // twin
-;
-
-// Non-interact Object Types
-var nio_0,                  // approach
-    nio_1                   // hold timer
-;
 
 // Global PIXI Settings
 PIXI.settings.RENDER_OPTIONS.antialias = true
@@ -58,6 +47,7 @@ var gameplay = new PIXI.Container()
         gameplay_field.name = 'gameplay_field'
         gameplay_field.x = window.screen.width/2
         gameplay_field.y = window.screen.height * 48/100
+
 
 var mainmenu = new PIXI.Container()
     mainmenu.name = 'mainmenu'
