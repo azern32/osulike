@@ -1,7 +1,9 @@
-if (PIXI.isMobile.phone){
+
+
+// if (PIXI.isMobile.phone){
     // renderer.resize(window.screen.availWidth, window.screen.availHeight);
     renderer.resize(window.screen.width, window.screen.height);
-}
+// }
 
 // to be deleted
 function moveplacementLine() {
@@ -17,7 +19,7 @@ function moveplacementLine() {
 
 
 $('body').prepend(renderer.view)
-to_render.addChild(debug_button)
+to_render.addChild(debug_button, placement_line, timestamp_line)
 
 
 ticker.add(function (delta) {
@@ -25,6 +27,8 @@ ticker.add(function (delta) {
     // showDate.text = updateDate() + " " + `${window.screen.width} ${window.screen.height} ${PIXI.isMobile.phone} ${ticker.FPS}`
     updateInfo()
     moveplacementLine()
+    objectVisibilty(gameplay_field.children)
+    approachScaleVisibilty(gameplay_approachField.children)
 })
 
 ticker.start()
@@ -35,4 +39,6 @@ readMap(map_to_read).then((x)=>{console.log(`${x} ${gameplay_field.children}`)})
     console.log(error)
     gameplay_field.width *= window_scale()
     gameplay_field.height *= window_scale()
+    gameplay_approachField.width *= window_scale()
+    gameplay_approachField.height *= window_scale()
   })

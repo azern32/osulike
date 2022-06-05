@@ -8,7 +8,7 @@ loadMusic()
 
 // Gameplay scenes
 gameplay.addChild(gameplay_field, start_button);
-
+gameplay_field.addChild(field)
 
     // To be deleted///////////////
     // gameplay_field.addChild(hitobject[2])

@@ -13,7 +13,7 @@ debug_button.buttonMode = true;
 debug_button.width = 60
 debug_button.height = 30
 debug_button.x = 50 ;
-debug_button.y = window.screen.height - debug_button.height ;
+debug_button.y = window_height - debug_button.height ;
 
 debug_button.on('pointertap', () => {
     bol = !bol;
@@ -31,8 +31,8 @@ var start_button = new PIXI.Sprite(start_texture);
 start_button.interactive = true;
 start_button.buttonMode = true;
 start_button.anchor.set(.5)
-start_button.x = window.screen.width/2;
-start_button.y = window.screen.height - start_button.height - 20;
+start_button.x = window_width/2;
+start_button.y = window_height - start_button.height - 20;
 start_pause = false
 start_button.on('pointertap', () => {
     start_pause = !start_pause;
@@ -53,3 +53,10 @@ start_button.on('pointertap', () => {
 
 // Teksture hit object
 var hittexture = PIXI.Texture.from('img/hit.png')
+
+// gameplay_field field
+var field = new PIXI.Graphics
+    field.lineStyle(1, 0x000000, .2);
+    field.drawRect(-window_width, -window_height, window_width*2, window_height*2);
+    field.endFill()
+    field.cacheAsBitmap = true

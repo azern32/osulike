@@ -53,3 +53,13 @@ start_button.on('pointertap', () => {
 
 // Teksture hit object
 var hittexture = PIXI.Texture.from('img/hit.png')
+
+// Texture approach circle
+var approachtexture = PIXI.Texture.from('img/approach.png')
+
+// gameplay_field field
+var field = new PIXI.Graphics
+    field.lineStyle(1, 0x000000, .2);
+    field.drawRect(-window_width, -window_height, window_width*2, window_height*2);
+    field.endFill()
+    field.cacheAsBitmap = true

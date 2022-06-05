@@ -7,8 +7,8 @@ loadMusic()
 
 
 // Gameplay scenes
-gameplay.addChild(gameplay_field, start_button);
-
+gameplay.addChild(gameplay_field, gameplay_approachField, start_button);
+// gameplay_field.addChild(field)
 
     // To be deleted///////////////
     // gameplay_field.addChild(hitobject[2])
@@ -34,7 +34,7 @@ var placement_line = new PIXI.Graphics();
     placement_line.moveTo(0,20)
     placement_line.lineTo(10000,20)
     placement_line.x = window.screen.width/2
-    placement_line.y = window.screen.height - 50
+    placement_line.y = /*window.screen.height - */50
 
 
     for (var i = 0; i < placement_line.width; i++) {
@@ -60,9 +60,7 @@ var placement_line = new PIXI.Graphics();
           break;
 
         default:
-
       }
-
     }
 
 var timestamp_line = new PIXI.Graphics();
@@ -70,7 +68,7 @@ var timestamp_line = new PIXI.Graphics();
     timestamp_line.moveTo(0,0)
     timestamp_line.lineTo(0,40)
     timestamp_line.x = window.screen.width/2
-    timestamp_line.y = window.screen.height - 50
+    timestamp_line.y = /*window.screen.height - */50
 
 calibration.addChild(calibration_field, placement_line, timestamp_line);
 

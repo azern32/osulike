@@ -16,7 +16,7 @@ out
 /build
 /CordovaLib/build
 /app/build*
-!/app/build/outputs/apk/debug
+/app/build/outputs/apk/debug/!app-debug.apk
 gradle-app.setting
 # Android Studio
 .idea
