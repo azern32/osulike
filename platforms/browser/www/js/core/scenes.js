@@ -7,7 +7,7 @@ loadMusic()
 
 
 // Gameplay scenes
-gameplay.addChild(gameplay_field, gameplay_approachField, start_button);
+gameplay.addChild(gameplay_field, gameplay_slideField, gameplay_approachField, start_button);
 // gameplay_field.addChild(field)
 
     // To be deleted///////////////

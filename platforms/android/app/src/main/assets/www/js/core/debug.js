@@ -28,7 +28,7 @@ debug_info.y = 3;
 debug_info.style = text_style;
 
 var debug_info2 = new PIXI.Text;
-debug_info2.x = window_width - 15;
+debug_info2.x = window.screen.width - 15;
 debug_info2.y = 3;
 debug_info2.style = text_style2;
 

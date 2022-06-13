@@ -54,6 +54,11 @@ var gameplay = new PIXI.Container()
         gameplay_approachField.x = window.screen.width/2
         gameplay_approachField.y = window.screen.height * 48/100
 
+    var gameplay_slideField = new PIXI.Container()
+        gameplay_slideField.name = 'gameplay_slideField'
+        gameplay_slideField.x = window.screen.width/2
+        gameplay_slideField.y = window.screen.height * 48/100
+
 
 var mainmenu = new PIXI.Container()
     mainmenu.name = 'mainmenu'
@@ -181,5 +186,73 @@ function scale(pos){
     return .95 + (x/1.5 * 3)
   } else {
     return .95
+  }
+}
+
+
+function drawingSlideLine(pos){
+  let xy = pos[3]
+  let time = pos[2]
+
+  let timepos = Math.abs((time[0]*60/current_bpm) - music.seek())
+  let op100 = visibility_range/1000
+  let op0 = 1
+
+  if (x <= op100) {
+
+  } else {
+
+  }
+}
+
+function makingSliderLine(pos) {
+  let x = new PIXI.Graphics()
+  x.data = pos
+  x.timestamp = pos[0]
+  x.timepoints = pos[2]
+  x.coordpoints = pos[3]
+  gameplay_slideField.addChildAt(x, 0)
+}
+
+function redrawLine(sliderobject){
+  // gameplay_slideField.children as sliderobject
+  sliderobject.clear()
+  sliderobject.lineStyle(32, 0xe27ce2, 1)
+
+  let timepoints = sliderobject.timepoints
+  let coordpoints = sliderobject.coordpoints
+
+  // bikin pewaktu dulu baru hitung panjang garis sesuai waktu
+  sliderobject.moveTo()
+  sliderobject.lineTo()
+}
+
+
+function lerp(t, pStart, pEnd) {
+  // if (t>1) {
+  //   t=1
+  // } else if (t<0) {
+  //   t=0
+  // }
+  let result = pStart + (pEnd - pStart)*t
+  return result
+}
+
+function nBezier(t, arrayXY){
+  let tempArr = arrayXY
+  let loopArr = []
+
+  if (arrayXY.length < 2) {
+    return {
+      x:arrayXY[0][0],
+      y:arrayXY[0][1]
+    }
+  } else {
+    for (var i = 1; i < tempArr.length; i++) {
+      let x = lerp(t, tempArr[i-1][0], tempArr[i][0])
+      let y = lerp(t, tempArr[i-1][1], tempArr[i][1])
+      loopArr.push([x,y])
+    }
+    return nBezier(t, loopArr)
   }
 }

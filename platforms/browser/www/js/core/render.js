@@ -29,6 +29,12 @@ ticker.add(function (delta) {
     moveplacementLine()
     objectVisibilty(gameplay_field.children)
     approachScaleVisibilty(gameplay_approachField.children)
+
+
+    start_button.x = nBezier(music.seek()/(4*60/current_bpm), [[window.screen.width/2,window.screen.height/2],[100,0],[-100,-240],[-100,440],[400,358]]).x
+    start_button.y = nBezier(music.seek()/(4*60/current_bpm), [[window.screen.width/2,window.screen.height/2],[100,0],[-100,-240],[-100,440],[400,358]]).y
+
+
 })
 
 ticker.start()

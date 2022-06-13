@@ -2,18 +2,19 @@
 // Map testing bakal dihapus /////////////
 map_to_read = [
   // ["hit timestamp","type",["arrays of timestamp"],["arrays of position"]]
-  [8,0,[[8]],[[0,0]]],
-  [12,0,[[12]],[[30,-40]]],
-  [16,0,[[16]],[[130,-40]]],
-  [20,0,[[20]],[[30,-240]]],
-  [32,0,[[32]],[[0,0]]],
-  [34,0,[[34]],[[20,0]]],
-  [36,0,[[36]],[[30,0]]],
-  [38,0,[[38]],[[30,100]]],
-  [40,0,[[40]],[[30,0]]],
-  [42,0,[[42]],[[30,100]]],
-  [46,3,[[46]],[[30,-110]]],
-  [46,3,[[46]],[[30,100]]],
+  [4, 2, [4,10], [[0,0], [100,0]] ],
+  [8,0,[8],[[0,0]]],
+  [12,0,[12],[[30,-40]]],
+  [16,0,[16],[[130,-40]]],
+  [20,0,[20],[[30,-240]]],
+  [32,0,[32],[[0,0]]],
+  [34,0,[34],[[20,0]]],
+  [36,0,[36],[[30,0]]],
+  [38,0,[38],[[30,100]]],
+  [40,0,[40],[[30,0]]],
+  [42,0,[42],[[30,100]]],
+  [46,3,[46],[[30,-110]]],
+  [46,3,[46],[[30,100]]],
 
 
 ]
@@ -36,6 +37,7 @@ async function readMap(m) {
     let hitobject = new PIXI.Sprite(hittexture)
         hitobject.anchor.set(0.5)
         hitobject.interactive = false
+        hitobject.hitArea = new PIXI.Circle(0,0, 60)
 
 
     let x2 = new PIXI.Container
@@ -52,33 +54,46 @@ async function readMap(m) {
       case 0:
         hitobject.tint = 0xc7e5ff;
         approachobject.tint = 0xc7e5ff;
+
+        hitobject.on('pointertap', ()=>{
+          tickSFX.play()
+          accuracy(hitTiming(x.timestamp))
+          console.log(x.timestamp+" "+ hitTiming(x.timestamp));
+          debug_message = x.timestamp;
+          x.clicked = !true
+        })
         break;
-        case 1:
-          hitobject.tint = 0xe27ce2;
-          approachobject.tint = 0xe27ce2;
-          break;
-          case 2:
-            hitobject.tint = 0xe27ce2;
-            approachobject.tint = 0xe27ce2;
-            break;
-            case 3:
-              hitobject.tint = 0xffd966;
-              approachobject.tint = 0xffd966;
-              break;
+
+      case 1:
+        hitobject.tint = 0xe27ce2;
+        approachobject.tint = 0xe27ce2;
+        break;
+
+      case 2:
+        hitobject.tint = 0xe27ce2;
+        approachobject.tint = 0xe27ce2;
+        break;
+
+      case 3:
+        hitobject.tint = 0xffd966;
+        approachobject.tint = 0xffd966;
+
+        hitobject.on('pointertap', ()=>{
+          tickSFX.play()
+          accuracy(hitTiming(x.timestamp))
+          console.log(x.timestamp+" "+ hitTiming(x.timestamp));
+          debug_message = x.timestamp;
+          x.clicked = !true
+        })
+        break;
+
       default:
       hitobject.tint = 0xFFFFFF;
       approachobject.tint = 0xFFFFFF;
     }
 
-    hitobject.hitArea = new PIXI.Circle(0,0, 60)
 
-    hitobject.on('pointertap', ()=>{
-      tickSFX.play()
-      accuracy(hitTiming(x.timestamp))
-      console.log(x.timestamp+" "+ hitTiming(x.timestamp));
-      debug_message = x.timestamp;
-      x.clicked = !true
-    })
+
 
     x.addChild(hitobject)
     x.width *= 1.5

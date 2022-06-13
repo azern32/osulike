@@ -29,6 +29,10 @@ ticker.add(function (delta) {
     moveplacementLine()
     objectVisibilty(gameplay_field.children)
     approachScaleVisibilty(gameplay_approachField.children)
+
+
+
+
 })
 
 ticker.start()

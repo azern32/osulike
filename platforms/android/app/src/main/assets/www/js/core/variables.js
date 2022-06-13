@@ -1,12 +1,13 @@
 // Variables
 var global_offset = 0;      //Input calibration in milisecond
-var global_margin = 60;     //in milisecond
-var master_volume = 70;    // max scale 100
+var global_margin = 250;     //in milisecond
+var master_volume = 20;    // max scale 100
 var music_volume = 100;     // max scale 100
 var sfx_volume = 50;        // max scale 100
 var play_video = false;
 var dim_video = 0;          // max scale 100, 0 means 0 transparancy
 var approach_rate = 8;      // max fixed 10
+var visibility_range = 300  // in miliseconds
 var window_width = 1360;
 var window_height = 765;
 var perf2 = 0
@@ -47,6 +48,16 @@ var gameplay = new PIXI.Container()
         gameplay_field.name = 'gameplay_field'
         gameplay_field.x = window.screen.width/2
         gameplay_field.y = window.screen.height * 48/100
+
+    var gameplay_approachField = new PIXI.Container()
+        gameplay_approachField.name = 'gameplay_approachField'
+        gameplay_approachField.x = window.screen.width/2
+        gameplay_approachField.y = window.screen.height * 48/100
+
+    var gameplay_slideField = new PIXI.Container()
+        gameplay_slideField.name = 'gameplay_slideField'
+        gameplay_slideField.x = window.screen.width/2
+        gameplay_slideField.y = window.screen.height * 48/100
 
 
 var mainmenu = new PIXI.Container()
@@ -126,4 +137,103 @@ function setBPM() {
     current_bpm = 60/tempo * 1000;
   }
   perf2 = performance.now()
+}
+
+
+function hitTiming(timestamp) {
+  return Math.abs((timestamp * 60/current_bpm) - music.seek() + global_offset )
+}
+
+
+function accuracy(timinghit){
+  if (timinghit <= (global_margin*2/3)/1000) {
+    console.log('Perfect');
+    // return 3
+  } else if (timinghit <= global_margin/1000) {
+    console.log('Okay');
+    // return 2
+  } else if (timinghit <= (global_margin * 3/2)/1000) {
+    console.log('Miss');
+    // return 1
+  } else {
+    console.log('Unregister');
+    // return 0
+  }
+}
+
+
+function visibility(pos) {
+  let x = Math.abs(pos - music.seek())
+  let op100 = visibility_range/1000
+  let op0 = 1
+
+  if (x <= op100) {
+    return 1
+  } else if (x <= op0) {
+    return 1 - (x - op100)/(op0 - op100)
+  } else {
+    return 0
+  }
+}
+
+function scale(pos){
+  let x = pos - music.seek()
+  let sc2x = 1.5
+
+  if (x > sc2x) {
+    return 3
+  } else if(x >= 0 ){
+    return .95 + (x/1.5 * 3)
+  } else {
+    return .95
+  }
+}
+
+
+function drawingSlideLine(pos){
+  let xy = pos[3]
+  let time = pos[2]
+
+  let timepos = Math.abs((time[0]*60/current_bpm) - music.seek())
+  let op100 = visibility_range/1000
+  let op0 = 1
+
+  if (x <= op100) {
+
+  } else {
+
+  }
+}
+
+function makingSliderLine(pos) {
+  let x = new PIXI.Graphics()
+  x.data = pos
+  x.timestamp = pos[0]
+  x.timepoints = pos[2]
+  x.coordpoints = pos[3]
+  gameplay_slideField.addChildAt(x, 0)
+}
+
+function redrawLine(sliderobject){
+  // gameplay_slideField.children as sliderobject
+  sliderobject.clear()
+  sliderobject.lineStyle(32, 0xe27ce2, 1)
+
+  let timepoints = sliderobject.timepoints
+  let coordpoints = sliderobject.coordpoints
+
+  // bikin pewaktu dulu baru hitung panjang garis sesuai waktu
+  sliderobject.moveTo()
+  sliderobject.lineTo()
+}
+
+
+function lerp(t, pStart, pEnd) {
+  let result = pStart + (pEnd - pStart)*t
+  return result
+}
+
+function nBezier(t, arrayXY){
+  let tempArr = []
+  
 }
