@@ -163,11 +163,31 @@ function accuracy(timinghit){
 
 
 function visibility(pos) {
-  let x = Math.abs(pos - music.seek())
+
+  let op100 = visibility_range/1000
+  let op0 = 1
+  let start = pos[0] * 60/current_bpm
+  let end = pos[pos.length - 1] * 60/current_bpm
+  let buffer = (end - start)/2
+  let x = Math.abs(start + buffer - music.seek())
+
+  if (x <= op100 + buffer) {
+    return 1
+  } else if (x <= op0 + buffer) {
+    return 1 - (x - op100 + buffer)/(op0 - op100 + 2*buffer)
+  } else {
+    return 0
+  }
+}
+
+function sliderVisibility(pos) {
+  let x = pos*60/current_bpm - music.seek()
   let op100 = visibility_range/1000
   let op0 = 1
 
-  if (x <= op100) {
+  if (x < -op100/8) {
+    return 0
+  } else if (x <= op100) {
     return 1
   } else if (x <= op0) {
     return 1 - (x - op100)/(op0 - op100)
@@ -228,17 +248,17 @@ function redrawLine(sliderobject){
 }
 
 
-function lerp(t, pStart, pEnd) {
+function lerp(t, pStart, pEnd, power=1) {
   if (t>1) {
     t=1
   } else if (t<0) {
     t=0
   }
-  let result = pStart + (pEnd - pStart)*t
+  let result = (pStart + (pEnd - pStart)*t)*power
   return result
 }
 
-function nBezier(t, arrayXY){
+function nBezier(t, arrayXY, power=1){
   let tempArr = arrayXY
   let loopArr = []
 
@@ -249,10 +269,22 @@ function nBezier(t, arrayXY){
     }
   } else {
     for (var i = 1; i < tempArr.length; i++) {
-      let x = lerp(t, tempArr[i-1][0], tempArr[i][0])
-      let y = lerp(t, tempArr[i-1][1], tempArr[i][1])
+      let x = lerp(t, tempArr[i-1][0], tempArr[i][0], power)
+      let y = lerp(t, tempArr[i-1][1], tempArr[i][1], power)
       loopArr.push([x,y])
     }
-    return nBezier(t, loopArr)
+    return nBezier(t, loopArr, power)
+  }
+}
+
+function drawnBezier(graphicObject, arrayXY) {
+  let acc = .01
+  let a = graphicObject
+  // return a
+  a.lineStyle(16  , 0xe27ce2, 1)
+  a.moveTo(arrayXY[0][0],arrayXY[0][0])
+
+  for (var i = 0; i < 1; i+=acc) {
+    a.lineTo(nBezier(i,arrayXY).x, nBezier(i,arrayXY).y)
   }
 }

@@ -2,7 +2,7 @@
 // Map testing bakal dihapus /////////////
 map_to_read = [
   // ["hit timestamp","type",["arrays of timestamp"],["arrays of position"]]
-  [4, 2, [4,10], [[0,0], [100,0]] ],
+  [4, 2, [4,10], [[34,50], [0,100], [500,400], [2, -30]] ],
   [8,0,[8],[[0,0]]],
   [12,0,[12],[[30,-40]]],
   [16,0,[16],[[130,-40]]],
@@ -42,6 +42,7 @@ async function readMap(m) {
 
     let x2 = new PIXI.Container
         x2.timestamp = m[i][0]
+        x2.data = m[i]
         x2.x = m[i][3][0][0]
         x2.y = m[i][3][0][1]
     let approachobject = new PIXI.Sprite(approachtexture)
@@ -113,16 +114,31 @@ async function readMap(m) {
 function objectVisibilty(m) {
   // gameplay_field.children as m
   m.forEach((item, i) => {
-    item.alpha = visibility(item.timestamp * 60/current_bpm)
+    item.alpha = visibility(item.data[2])
     item.alpha == 1 ? item.children[0].interactive = true : item.children[0].interactive = false
   });
 }
 
+function objectMove(m) {
+  // gameplay_field.children as m
+  let t = music.seek()
+  m.forEach((item, i)=>{
+    if (item.data[2].length > 1) {
+      let start = item.data[2][0] * (60/current_bpm)
+      let end = item.data[2][1] * (60/current_bpm)
+      let time = (t - start)/(end - start)
+      if (time > 0) {
+        item.x = nBezier(time, item.data[3], 1).x
+        item.y = nBezier(time, item.data[3], 1).y
+      }
+    }
+  })
+}
 
 function approachScaleVisibilty(m) {
   // gameplay_approachField.children as m
   m.forEach((item, i) => {
-    item.alpha = visibility(item.timestamp * 60/current_bpm)
+    item.alpha = sliderVisibility(item.timestamp)
     item.scale.x = scale(item.timestamp * 60/current_bpm)
     item.scale.y = scale(item.timestamp * 60/current_bpm)
   });
