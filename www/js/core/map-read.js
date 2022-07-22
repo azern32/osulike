@@ -39,7 +39,6 @@ async function readMap(m) {
         hitobject.interactive = false
         hitobject.hitArea = new PIXI.Circle(0,0, 60)
 
-
     let x2 = new PIXI.Container
         x2.timestamp = m[i][0]
         x2.data = m[i]
@@ -52,7 +51,7 @@ async function readMap(m) {
         approachobject.height *= 1.5
 
     switch (m[i][1]) {
-      case 0:
+      case 0: //simpel tap
         hitobject.tint = 0xc7e5ff;
         approachobject.tint = 0xc7e5ff;
 
@@ -65,17 +64,62 @@ async function readMap(m) {
         })
         break;
 
-      case 1:
+      case 1: //hold
         hitobject.tint = 0xe27ce2;
         approachobject.tint = 0xe27ce2;
+
+        hitobject.on('pointerdown', ()=>{
+          accuracy(hitTiming(x.data[2][0]))
+          console.log(x.data[2][0]+" "+ hitTiming(x.data[2][0]));
+          debug_message = x.data[2][0];
+          x.clicked = !true
+        })
+
+        hitobject.on('pointerup', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
+          // debug_message = x.data[2][1];
+        })
+
+        hitobject.on('pointerupoutside', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log('Miss');
+        })
+
+        
         break;
 
-      case 2:
+      case 2: //slider
         hitobject.tint = 0xe27ce2;
         approachobject.tint = 0xe27ce2;
+
+        hitobject.on('pointerdown', ()=>{
+          accuracy(hitTiming(x.data[2][0]))
+          console.log(x.data[2][0]+" "+ hitTiming(x.data[2][0]));
+          hitobject.hitArea.radius = 110
+          debug_message = x.data[2][0];
+          x.clicked = !true
+        })
+
+        hitobject.on('pointerup', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
+          // debug_message = x.data[2][1];
+        })
+
+        hitobject.on('pointerupoutside', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log('Miss');
+        })
+        
+        // hitobject.on('pointerout', ()=>{
+        //   accuracy(hitTiming(x.data[2][1]))
+        //   console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
+        //   debug_message = x.data[2][1];
+        // })
         break;
 
-      case 3:
+      case 3: //hit twin
         hitobject.tint = 0xffd966;
         approachobject.tint = 0xffd966;
 

@@ -103,6 +103,7 @@ function deltaHit(bpm){
     return 60/bpm
 }
 
+// This should make tick sound every beat per minute
 function metronome(bpm){
 
 }
@@ -247,7 +248,7 @@ function redrawLine(sliderobject){
   sliderobject.lineTo()
 }
 
-
+// Fungsi line interpolation
 function lerp(t, pStart, pEnd, power=1) {
   if (t>1) {
     t=1
@@ -258,16 +259,18 @@ function lerp(t, pStart, pEnd, power=1) {
   return result
 }
 
+
+// Fungsi bezier berapapun
 function nBezier(t, arrayXY, power=1){
   let tempArr = arrayXY
   let loopArr = []
 
   if (arrayXY.length < 2) {
-    return {
+    return { //bagian ini return x,y kalau sisa 1 array
       x:arrayXY[0][0],
       y:arrayXY[0][1]
     }
-  } else {
+  } else { //bagian ini lakukan lerp untuk setiap pasangan array berurutan
     for (var i = 1; i < tempArr.length; i++) {
       let x = lerp(t, tempArr[i-1][0], tempArr[i][0], power)
       let y = lerp(t, tempArr[i-1][1], tempArr[i][1], power)
@@ -276,6 +279,7 @@ function nBezier(t, arrayXY, power=1){
     return nBezier(t, loopArr, power)
   }
 }
+
 
 function drawnBezier(graphicObject, arrayXY) {
   let acc = .01

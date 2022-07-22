@@ -39,7 +39,6 @@ async function readMap(m) {
         hitobject.interactive = false
         hitobject.hitArea = new PIXI.Circle(0,0, 60)
 
-
     let x2 = new PIXI.Container
         x2.timestamp = m[i][0]
         x2.data = m[i]
@@ -68,11 +67,54 @@ async function readMap(m) {
       case 1:
         hitobject.tint = 0xe27ce2;
         approachobject.tint = 0xe27ce2;
+
+        hitobject.on('pointerdown', ()=>{
+          accuracy(hitTiming(x.data[2][0]))
+          console.log(x.data[2][0]+" "+ hitTiming(x.data[2][0]));
+          debug_message = x.data[2][0];
+          x.clicked = !true
+        })
+
+        hitobject.on('pointerup', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
+          debug_message = x.data[2][1];
+        })
+
+        
         break;
 
       case 2:
         hitobject.tint = 0xe27ce2;
         approachobject.tint = 0xe27ce2;
+
+        hitobject.on('pointerdown', ()=>{
+          accuracy(hitTiming(x.data[2][0]))
+          console.log(x.data[2][0]+" "+ hitTiming(x.data[2][0]));
+          hitobject.hitArea.radius = 110
+          debug_message = x.data[2][0];
+          x.clicked = !true
+        })
+
+        hitobject.on('pointerup', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
+          // debug_message = x.data[2][1];
+        })
+
+        // hitobject.on('pointerout', ()=>{
+        //   accuracy(hitTiming(x.data[2][1]))
+        //   console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
+        //   debug_message = x.data[2][1];
+        // })
+
+        hitobject.on('pointerupoutside', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log('Miss');
+          // console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
+          // debug_message = x.data[2][1];
+          console.log(hitobject.parent.x," =x")
+        })
         break;
 
       case 3:
