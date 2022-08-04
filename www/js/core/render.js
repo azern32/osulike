@@ -6,13 +6,13 @@
 // }
 
 // to be deleted
-function moveplacementLine() {
+function moveplacementLine() { // itu garis-garis beatnya
   a = Math.round(music.seek() * (16/(60/current_bpm)))
   placement_line.x = (window.screen.width/2) - a
 }
 //
 // gameplay_slideField.addChild(new PIXI.Graphics())
-// drawnBezier(gameplay_slideField.children[0], [[34,50], [0,100], [500,400], [2, -30]])
+// drawnBezier(gameplay_slideField.children[0], [[0,0], [0,100], [500,400], [2, -30]])
 //
 
 // to be deleted
@@ -33,7 +33,7 @@ ticker.add(function (delta) {
     objectVisibilty(gameplay_field.children)
     objectMove(gameplay_field.children)
     approachScaleVisibilty(gameplay_approachField.children)
-
+    approachSlide(gameplay_slideField.children)
 
 
 
@@ -49,4 +49,6 @@ readMap(map_to_read)
     gameplay_field.height *= window_scale()
     gameplay_approachField.width *= window_scale()
     gameplay_approachField.height *= window_scale()
+    // gameplay_slideField.width *= window_scale()
+    // gameplay_slideField.height *= window_scale()
   })

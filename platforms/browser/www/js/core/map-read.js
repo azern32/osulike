@@ -2,7 +2,7 @@
 // Map testing bakal dihapus /////////////
 map_to_read = [
   // ["hit timestamp","type",["arrays of timestamp"],["arrays of position"]]
-  [4, 2, [4,10], [[34,50], [0,100], [500,400], [2, -30]] ],
+  [4, 2, [4,10], [ [0,0], [100,0], [100,100]] ],
   [8,0,[8],[[0,0]]],
   [12,0,[12],[[30,-40]]],
   [16,0,[16],[[130,-40]]],
@@ -48,10 +48,15 @@ async function readMap(m) {
         approachobject.anchor.set(0.5)
         approachobject.interactive = false
         approachobject.width *= 1.5
-        approachobject.height *= 1.5
+        approachobject.height *= 1.5      
+
+    let x3 = new PIXI.Container
+        x3.x = m[i][3][0][0]
+        x3.y = m[i][3][0][1]
+
 
     switch (m[i][1]) {
-      case 0:
+      case 0: //simpel tap
         hitobject.tint = 0xc7e5ff;
         approachobject.tint = 0xc7e5ff;
 
@@ -64,7 +69,7 @@ async function readMap(m) {
         })
         break;
 
-      case 1:
+      case 1: //hold
         hitobject.tint = 0xe27ce2;
         approachobject.tint = 0xe27ce2;
 
@@ -78,15 +83,23 @@ async function readMap(m) {
         hitobject.on('pointerup', ()=>{
           accuracy(hitTiming(x.data[2][1]))
           console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
-          debug_message = x.data[2][1];
+          // debug_message = x.data[2][1];
+        })
+
+        hitobject.on('pointerupoutside', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log('Miss');
         })
 
         
         break;
 
-      case 2:
+      case 2: //slider
         hitobject.tint = 0xe27ce2;
         approachobject.tint = 0xe27ce2;
+        // makingSliderLine(m[i]) // ini baru masukkan slidernya, belum digambar
+        x3.addChildAt(makingSliderLine(m[i]), 0)
+        gameplay_slideField.addChildAt(x3, 0)
 
         hitobject.on('pointerdown', ()=>{
           accuracy(hitTiming(x.data[2][0]))
@@ -102,22 +115,19 @@ async function readMap(m) {
           // debug_message = x.data[2][1];
         })
 
+        hitobject.on('pointerupoutside', ()=>{
+          accuracy(hitTiming(x.data[2][1]))
+          console.log('Miss');
+        })
+        
         // hitobject.on('pointerout', ()=>{
         //   accuracy(hitTiming(x.data[2][1]))
         //   console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
         //   debug_message = x.data[2][1];
         // })
-
-        hitobject.on('pointerupoutside', ()=>{
-          accuracy(hitTiming(x.data[2][1]))
-          console.log('Miss');
-          // console.log(x.data[2][1]+" "+ hitTiming(x.data[2][1]));
-          // debug_message = x.data[2][1];
-          console.log(hitobject.parent.x," =x")
-        })
         break;
 
-      case 3:
+      case 3: //hit twin
         hitobject.tint = 0xffd966;
         approachobject.tint = 0xffd966;
 
@@ -170,8 +180,8 @@ function objectMove(m) {
       let end = item.data[2][1] * (60/current_bpm)
       let time = (t - start)/(end - start)
       if (time > 0) {
-        item.x = nBezier(time, item.data[3], 1).x
-        item.y = nBezier(time, item.data[3], 1).y
+        item.x = nBezier(time, item.data[3] ).x
+        item.y = nBezier(time, item.data[3] ).y
       }
     }
   })
@@ -180,8 +190,18 @@ function objectMove(m) {
 function approachScaleVisibilty(m) {
   // gameplay_approachField.children as m
   m.forEach((item, i) => {
-    item.alpha = sliderVisibility(item.timestamp)
+    item.alpha = approachVisibility(item.timestamp)
     item.scale.x = scale(item.timestamp * 60/current_bpm)
     item.scale.y = scale(item.timestamp * 60/current_bpm)
   });
+}
+
+function approachSlide(m) {
+  // gameplay_slideField.children as m
+  m.forEach((item, i)=>{
+    item.alpha = visibilitySlideLine(item.children[0].data)
+    // drawnBezier(item)
+    redrawLine(item.children[0])
+    // console.log(item)
+  })
 }

@@ -112,7 +112,7 @@ function metronome(bpm){
 function window_scale(){
     let w = window.screen.availWidth / window_width;
     let h = window.screen.availHeight/ window_height;
-    console.log(`scaling window w:${w} h:${h}`);
+    // console.log(`scaling window w:${w} h:${h}`);
     return (Math.min(w,h));
 }
 
@@ -181,7 +181,7 @@ function visibility(pos) {
   }
 }
 
-function sliderVisibility(pos) {
+function approachVisibility(pos) {
   let x = pos*60/current_bpm - music.seek()
   let op100 = visibility_range/1000
   let op0 = 1
@@ -211,41 +211,62 @@ function scale(pos){
 }
 
 
-function drawingSlideLine(pos){
-  let xy = pos[3]
-  let time = pos[2]
-
-  let timepos = Math.abs((time[0]*60/current_bpm) - music.seek())
-  let op100 = visibility_range/1000
-  let op0 = 1
-
-  if (x <= op100) {
-
-  } else {
-
-  }
-}
-
 function makingSliderLine(pos) {
   let x = new PIXI.Graphics()
   x.data = pos
   x.timestamp = pos[0]
   x.timepoints = pos[2]
-  x.coordpoints = pos[3]
-  gameplay_slideField.addChildAt(x, 0)
+  x.coordpoints = pos[3].slice().reverse()
+  // x.coordpoints.reverse()
+  // gameplay_slideField.addChildAt(x, 0)
+  return x
 }
+
+
+// Fungsi untuk VISIBILITAS slider
+function visibilitySlideLine(pos){
+  let xy = pos[3]
+  let time = pos[2]
+  let x = (pos[2][1]*60/current_bpm) - (pos[2][0]*60/current_bpm)
+
+  let timeposStart = Math.abs((time[0]*60/current_bpm) - music.seek())
+  let timeposEnd = Math.abs((time[1]*60/current_bpm) - music.seek())
+  let timepos = timeposStart + timeposEnd
+
+  if(timepos > x){
+    return 1 - timepos/x+(visibility_range/1000)
+  } else {
+    return 1
+  }
+  // console.log(timeposStart + timeposEnd)
+}
+
 
 function redrawLine(sliderobject){
   // gameplay_slideField.children as sliderobject
   sliderobject.clear()
-  sliderobject.lineStyle(32, 0xe27ce2, 1)
-
+  sliderobject.lineStyle(16, 0xe27ce2, 1)
+  
   let timepoints = sliderobject.timepoints
   let coordpoints = sliderobject.coordpoints
+  let pewaktu
+  
+  if (music.seek() - timepoints[0]*60/current_bpm < 0) {
+    pewaktu = 1
+  } else if (timepoints[1]*60/current_bpm - music.seek() < 0) {
+    pewaktu = 0
+  } else {
+    pewaktu = 1 - (music.seek() - (timepoints[0]*60/current_bpm)) / (timepoints[1]*60/current_bpm - timepoints[0]*60/current_bpm) 
+  }
+   
+  sliderobject.moveTo(coordpoints[0][0]* window_scale(), coordpoints[0][1]* window_scale())
+  
+  for (var i = 0; i < pewaktu; i+=.01) {
+    sliderobject.lineTo(nBezier(i, coordpoints).x * window_scale(), nBezier(i, coordpoints).y * window_scale())
+  }
+
 
   // bikin pewaktu dulu baru hitung panjang garis sesuai waktu
-  sliderobject.moveTo()
-  sliderobject.lineTo()
 }
 
 // Fungsi line interpolation
@@ -281,14 +302,27 @@ function nBezier(t, arrayXY, power=1){
 }
 
 
-function drawnBezier(graphicObject, arrayXY) {
-  let acc = .01
+// Fungsi gambar bezier
+function drawnBezier( graphicObject) {
+  let acc = .05
   let a = graphicObject
-  // return a
-  a.lineStyle(16  , 0xe27ce2, 1)
-  a.moveTo(arrayXY[0][0],arrayXY[0][0])
+  let arrayXY = graphicObject.data[3]
+  let time = graphicObject.data[2]
+  let t
+  // if (music.seek() < time[0]*60/current_bpm || music.seek()> time[1]*60/current_bpm){
+  //   t = 1
+  // } else {
+  //   t = (time[1]*60/current_bpm -  music.seek())/(time[1]*60/current_bpm - time[0]*60/current_bpm)
+  // }
 
+  
+  // return a
+  // a.clear()
+  a.lineStyle(16  , 0xe27ce2, 1)
+  a.moveTo(arrayXY[0][0],arrayXY[0][1])
+  
   for (var i = 0; i < 1; i+=acc) {
+    // console.log(t)
     a.lineTo(nBezier(i,arrayXY).x, nBezier(i,arrayXY).y)
   }
 }
