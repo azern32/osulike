@@ -2,9 +2,9 @@
 // Map testing bakal dihapus /////////////
 map_to_read = [
   // ["hit timestamp","type",["arrays of timestamp"],["arrays of position"]]
-  [4, 2, [4,10], [ [0,0], [100,0], [100,100]] ],
+  [4, 2, [4,10], [ [0,0], [100,0], [100,100], [-100,-100]] ],
   [8,0,[8],[[0,0]]],
-  [12,0,[12],[[30,-40]]],
+  [12,1,[12,14],[[-130,-40]]],
   [16,0,[16],[[130,-40]]],
   [20,0,[20],[[30,-240]]],
   [32,0,[32],[[0,0]]],
@@ -72,6 +72,9 @@ async function readMap(m) {
       case 1: //hold
         hitobject.tint = 0xe27ce2;
         approachobject.tint = 0xe27ce2;
+
+        x3.addChildAt(makingHoldTimer(m[i]), 0)
+        gameplay_timerField.addChildAt(x3, 0)
 
         hitobject.on('pointerdown', ()=>{
           accuracy(hitTiming(x.data[2][0]))
@@ -205,3 +208,6 @@ function approachSlide(m) {
     // console.log(item)
   })
 }
+
+
+  

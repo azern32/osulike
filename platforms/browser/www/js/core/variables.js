@@ -59,6 +59,11 @@ var gameplay = new PIXI.Container()
         gameplay_slideField.x = window.screen.width/2
         gameplay_slideField.y = window.screen.height * 48/100
 
+    var gameplay_timerField = new PIXI.Container()
+        gameplay_timerField.name = 'gameplay_timerField'
+        gameplay_timerField.x = window.screen.width/2
+        gameplay_timerField.y = window.screen.height * 48/100
+
 
 var mainmenu = new PIXI.Container()
     mainmenu.name = 'mainmenu'
@@ -210,7 +215,19 @@ function scale(pos){
   }
 }
 
+function makingHoldTimer(pos){
+  let x = new PIXI.Graphics()
+  x.data = pos
+  x.timestamp = pos[0]
+  x.timepoints = pos[2]
+  x.coordpoints = pos[3].slice().reverse()
+  // x.coordpoints.reverse()
+  // gameplay_slideField.addChildAt(x, 0)
+  return x
+}
 
+
+// Fungsi untuk bikin garis slider tapi belum digambar
 function makingSliderLine(pos) {
   let x = new PIXI.Graphics()
   x.data = pos
@@ -242,6 +259,7 @@ function visibilitySlideLine(pos){
 }
 
 
+// Fungsi untuk gambar garis slider
 function redrawLine(sliderobject){
   // gameplay_slideField.children as sliderobject
   sliderobject.clear()
@@ -268,6 +286,18 @@ function redrawLine(sliderobject){
 
   // bikin pewaktu dulu baru hitung panjang garis sesuai waktu
 }
+
+function redrawTimer(timerObject){
+  timerObject.clear()
+  sliderobject.lineStyle(16, 0xe27ce2, 1)
+
+  let timepoints = sliderobject.timepoints
+  let coordpoints = sliderobject.coordpoints
+  let pewaktu
+
+  
+}
+
 
 // Fungsi line interpolation
 function lerp(t, pStart, pEnd, power=1) {

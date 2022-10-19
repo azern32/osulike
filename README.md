@@ -14,7 +14,7 @@ A rhythm game that just like osu... but a little bit different
 	- ~~A working object_types class (extending PIXI.Container)~~
 	- ~~Able to register multiple input for twin object types & hold + tap~~
 	- ~~Able to move along slider~~
-	- Able to register a moving input
+	- ~~Able to register a moving input
 	- Sweeper to destroy untapped hit object
 	- Following circle for slider object
 	- Hold object

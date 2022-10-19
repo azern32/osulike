@@ -1,7 +1,7 @@
 
-var music_filename = '01.Broken Marionette.mp3'
-// var music_filename = 'Myosotis (feat  Guriri, Lucy)_M2U & NICODE_Myosotis.mp3'
-var music_map   = '../../maps/1-map'
+// var music_filename = '01.Broken Marionette.mp3'
+var music_filename = 'Myosotis (feat  Guriri, Lucy)_M2U & NICODE_Myosotis.mp3'
+var music_map   = '../../maps/0-map'
 var music
 var metronome_bool = false
 // Load music
